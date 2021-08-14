@@ -90,71 +90,98 @@ var lowercaseCharacters = [
   "y",
   "z",
 ];
-var generatePassword = [];
+var mainSelection = [];
 var finalSelection = [];
 
 // Initial password ask to user to initiate input process
 function writePassword() {
   var password = userSelection();
   var passwordText = document.querySelector("#password");
-  //
-  // User answering the prompt
 
-  var solution = (passwordText.value = password);
-}
 
-function userSelection() {
-  var pwdLength = prompt(
-    "This generators allows only a number of charaters starting from 8 to 128 -- How long is your password?"
-  );
-  console.log(pwdLength);
-  // find a way to change pwdLength to a number datatype
-  // user confirming all possible criterias
-  if (pwdLength < 8 || pwdLength > 128) {
-    alert(
+//   var solution = (passwordText.value = password);
+
+  function userSelection() {
+    var pwdLength = prompt(
       "This generators allows only a number of charaters starting from 8 to 128 -- How long is your password?"
     );
     console.log(pwdLength);
-    return;
+    pwdLength = parseInt(pwdLength);
+    console.log(pwdLength);
+
+    // checking that the number is less than 8 but greater than 128
+    if (pwdLength < 8 || pwdLength > 128) {
+      alert(
+        "This generators allows only a number of charaters starting from 8 to 128 -- How long is your password?"
+      );
+      console.log(pwdLength);
+    }
+
+    var allCharacters = [
+      "lower case",
+      "upper case",
+      "number",
+      "special character",
+    ];
+
+    for (let i = 0; i < allCharacters.length; i++) {
+      var kindResult = confirm("Do you want " + allCharacters[i] + "value?");
+      console.log(kindResult);
+
+      //concatinate all arrays to generate a group of arrays
+
+      if (allCharacters[i] === "lower case" && kindResult) {
+        mainSelection = mainSelection.concat(lowercaseCharacters); // array3=array2.concat(array1)
+        console.log(mainSelection);
+        finalSelection = finalSelection.concat(
+          lowercaseCharacters[
+            Math.floor(Math.random() * lowercaseCharacters.length)
+          ]
+        ); // array3=array2.concat(array1[function])
+        console.log(finalSelection);
+      } else if (allCharacters[i] === "upper case" && kindResult) {
+        mainSelection = mainSelection.concat(uppercaseCharacters);
+        console.log(mainSelection);
+        finalSelection = finalSelection.concat(
+          uppercaseCharacters[
+            Math.floor(Math.random() * uppercaseCharacters.length)
+          ]
+        );
+        console.log(finalSelection);
+      } else if (allCharacters[i] === "number" && kindResult) {
+        mainSelection = mainSelection.concat(numericalCharacters);
+        console.log(mainSelection);
+        finalSelection = finalSelection.concat(
+          numericalCharacters[
+            Math.floor(Math.random() * numericalCharacters.length)
+          ]
+        );
+        console.log(finalSelection);
+      } else if (allCharacters[i] === "special character" && kindResult) {
+        mainSelection = mainSelection.concat(specialCharacters);
+        console.log(mainSelection);
+        finalSelection = finalSelection.concat(
+          specialCharacters[
+            Math.floor(Math.random() * specialCharacters.length)
+          ]
+        );
+        console.log(finalSelection);
+      }
+    }
+
+    for (let i = finalSelection.length; i < pwdLength.length; i++) {
+      finalSelection = finalSelection.concat(
+        mainSelection[Math.floor(Math.random() * mainSelection)]
+      );
+      console.log(finalSelection);
+    }
+
+    finalSelection = finalSelection.join("");
+    return finalSelection;
   }
-        var allCharacters = ["lower case", "upper case", "number", "special character"] 
-        
-        for (let i = 0; i < allCharacters.length; i++) {
-            var kindResult = confirm("Do you want " + allCharacters[i]+ "value?");
-            console.log(kindResult);
-           
-            //concatinate all arrays to generate a group of arrays
 
-            if (allCharacters[i] === "lower case" && kindResult) {
-                mainSelection = [].concat(lowercaseCharacters);
-                console.log(mainSelection);
-                finalSelection = [].concat(lowercaseCharacters[Math.floor(Math.ramdom() * lowercaseCharacters.length)]);
-                console.log(finalSelection);
-            }
-            else if (allCharacters[i] === "upper case" && kindResult) {
-                mainSelection = wholeSelector.concat(uppercaseCharacters);
-                console.log(mainSelection);
-                finalSelection = [].concat(uppercaseCharacters[Math.floor(Math.ramdom() * uppercaseCharacters.length)]);
-                console.log(finalSelection);
-            } 
-            else if (allCharacters[i] === "number" && kindResult) {
-                mainSelection = wholeSelector.concat(numericalCharacters);
-                console.log(mainSelection);
-                finalSelection = [].concat(numericalCharacters[Math.floor(Math.ramdom() * numericalCharacters.length)]);
-                console.log(finalSelection);
-            }
-            else (allCharacters[i] === "special character" && kindResult) 
-                mainSelection = wholeSelector.concat(specialCharacters);
-                console.log(mainSelection);
-                finalSelection = [].concat(specialCharacters[Math.floor(Math.ramdom() * specialCharacters.length)]);
-                console.log(finalSelection);
-        }
-
-  // THEN my input should be validated and at least one character type should be selected
-
+  passwordText.value = password;
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-
