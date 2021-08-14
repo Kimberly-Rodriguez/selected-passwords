@@ -100,7 +100,7 @@ function writePassword() {
 
   function userSelection() {
     var pwdLength = prompt(
-      "This generators allows only a number of charaters starting from 8 to 128 -- How long is your password?"
+      "How long is your password? (This generators ONLY allows a number of charaters starting from 8 to 128)"
     );
     console.log(pwdLength);
     pwdLength = parseInt(pwdLength);
@@ -113,28 +113,29 @@ function writePassword() {
       );
       console.log(pwdLength);
     }
-
+    // Character Section
     var allCharacters = [
       "lower case",
       "upper case",
       "number",
       "special character"
     ];
-
+    // Looping and confirming user selection 
     for (var i = 0; i < allCharacters.length; i++) {
       var kindResult = confirm("Do you want a " + allCharacters[i] + " value?");
       console.log(kindResult);
 
-      //concatinate all arrays to generate a group of arrays
+    //Group Array Section
 
       if (allCharacters[i] === "lower case" && kindResult) {
-        mainSelection = mainSelection.concat(lowercaseCharacters); // array3=array2.concat(array1)
+        mainSelection = mainSelection.concat(lowercaseCharacters); 
         console.log(mainSelection);
         finalSelection = finalSelection.concat(
           lowercaseCharacters[
             Math.floor(Math.random() * lowercaseCharacters.length)
           ]
-        ); // array3=array2.concat(array1[function])
+        ) 
+  
         console.log(finalSelection);
       } else if (allCharacters[i] === "upper case" && kindResult) {
         mainSelection = mainSelection.concat(uppercaseCharacters);
@@ -143,7 +144,7 @@ function writePassword() {
           uppercaseCharacters[
             Math.floor(Math.random() * uppercaseCharacters.length)
           ]
-        );
+        )
         console.log(finalSelection);
       } else if (allCharacters[i] === "number" && kindResult) {
         mainSelection = mainSelection.concat(numericalCharacters);
@@ -152,7 +153,7 @@ function writePassword() {
           numericalCharacters[
             Math.floor(Math.random() * numericalCharacters.length)
           ]
-        );
+        )
         console.log(finalSelection);
       } else if (allCharacters[i] === "special character" && kindResult) {
         mainSelection = mainSelection.concat(specialCharacters);
@@ -161,18 +162,23 @@ function writePassword() {
           specialCharacters[
             Math.floor(Math.random() * specialCharacters.length)
           ]
-        );
-        console.log(finalSelection);
+        )
       }
+        else if (finalSelection.length === 0 && i === 3 ) {
+        alert("Please select one of the available options");
+            userSelection();
+        }
+        console.log(finalSelection);
+      
     }
-
+    // Looping group array for final selection 
     for (let i = finalSelection.length; i < pwdLength; i++) {
       finalSelection = finalSelection.concat(
         mainSelection[Math.floor(Math.random() * mainSelection.length)]
       );
       console.log(finalSelection);
     }
-
+    // Eliminating commas "," from the string result 
     finalSelection = finalSelection.join("");
     return finalSelection;
   }
@@ -180,5 +186,5 @@ function writePassword() {
   passwordText.value = password;
 }
 
-// Add event listener to generate button
+// Adding event listener to generate button
 generateBtn.addEventListener("click", writePassword);
