@@ -98,9 +98,6 @@ function writePassword() {
   var password = userSelection();
   var passwordText = document.querySelector("#password");
 
-
-//   var solution = (passwordText.value = password);
-
   function userSelection() {
     var pwdLength = prompt(
       "This generators allows only a number of charaters starting from 8 to 128 -- How long is your password?"
@@ -121,11 +118,11 @@ function writePassword() {
       "lower case",
       "upper case",
       "number",
-      "special character",
+      "special character"
     ];
 
-    for (let i = 0; i < allCharacters.length; i++) {
-      var kindResult = confirm("Do you want " + allCharacters[i] + "value?");
+    for (var i = 0; i < allCharacters.length; i++) {
+      var kindResult = confirm("Do you want a " + allCharacters[i] + " value?");
       console.log(kindResult);
 
       //concatinate all arrays to generate a group of arrays
@@ -169,9 +166,9 @@ function writePassword() {
       }
     }
 
-    for (let i = finalSelection.length; i < pwdLength.length; i++) {
+    for (let i = finalSelection.length; i < pwdLength; i++) {
       finalSelection = finalSelection.concat(
-        mainSelection[Math.floor(Math.random() * mainSelection)]
+        mainSelection[Math.floor(Math.random() * mainSelection.length)]
       );
       console.log(finalSelection);
     }
